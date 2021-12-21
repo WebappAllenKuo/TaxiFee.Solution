@@ -7,5 +7,7 @@ namespace WA.TaxiFee.Site.Models.DTOs
 {
 	public class RideDTO
 	{
+		public int Hour { get; set; }
+		public int Distance { get; set; }
 	}
 }

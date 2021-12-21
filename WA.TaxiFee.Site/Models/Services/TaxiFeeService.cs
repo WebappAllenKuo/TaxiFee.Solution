@@ -10,7 +10,7 @@ namespace WA.TaxiFee.Site.Models.Services
 	{
 		public RideResponse Calculate(RideDTO dto)
 		{
-			throw new NotImplementedException();
+			return new RideResponse {Fee=85 };
 		}
 	}
 }
