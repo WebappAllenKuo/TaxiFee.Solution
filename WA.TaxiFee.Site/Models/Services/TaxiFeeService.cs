@@ -23,27 +23,30 @@ namespace WA.TaxiFee.Site.Models.Services
 		{
 			const int basicFee = 85;
 			const int basicDistance = 1500;
+			const double unitDistance = 250.0;
 
-			int fee = basicFee;
-			if (dto.Distance > basicDistance) {
-				// 加錢
-				fee += (int)Math.Ceiling((dto.Distance - basicDistance)/250.0) * 5;
-			}
+			int fee = GetFee(basicFee, basicDistance, unitDistance, dto.Distance);
 
 			return new RideResponse { Hour=dto.Hour, Distance = dto.Distance, Fee=fee, ChargeType=ChargeType.Day };
+		}
+
+		private int GetFee(int basicFee, int basicDistance, double unitDistance, int distance)
+		{
+			int fee = basicFee;
+			if (distance > basicDistance)
+			{
+				fee += (int)Math.Ceiling((distance - basicDistance)/unitDistance) * 5;
+			}
+			return fee;
 		}
 
 		private RideResponse CalcNight(RideDTO dto)
 		{
 			const int basicFee = 85;
 			const int basicDistance = 1250;
+			const double unitDistance = 200.0;
 
-			int fee = basicFee;
-			if (dto.Distance > basicDistance)
-			{
-				// 加錢
-				fee += (int)Math.Ceiling((dto.Distance - basicDistance)/200.0) * 5;
-			}
+			int fee = GetFee(basicFee, basicDistance, unitDistance, dto.Distance);
 
 			return new RideResponse { Hour=dto.Hour, Distance = dto.Distance, Fee=fee, ChargeType=ChargeType.Night };
 		}

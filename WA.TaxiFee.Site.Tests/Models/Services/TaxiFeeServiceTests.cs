@@ -70,5 +70,32 @@ namespace WA.TaxiFee.Site.Tests.Models.Services
 			Assert.AreEqual(expected, result.Fee);
 		}
 
+		[TestCase(1251)]
+		[TestCase(1450)]
+		public void Calculate_夜間跳一次_Returns90(int distance)
+		{
+			var dto = new RideDTO { Hour=nightHour, Distance=distance };
+			var service = new TaxiFeeService();
+
+			int expected = 90;
+
+			var result = service.Calculate(dto);
+
+			Assert.AreEqual(expected, result.Fee);
+		}
+
+		[TestCase(1451)]
+		[TestCase(1650)]
+		public void Calculate_夜間跳2次_Returns95(int distance)
+		{
+			var dto = new RideDTO { Hour=nightHour, Distance=distance };
+			var service = new TaxiFeeService();
+
+			int expected = 95;
+
+			var result = service.Calculate(dto);
+
+			Assert.AreEqual(expected, result.Fee);
+		}
 	}
 }
