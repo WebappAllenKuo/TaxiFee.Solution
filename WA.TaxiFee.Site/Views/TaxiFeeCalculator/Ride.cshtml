@@ -1,4 +1,6 @@
-﻿@model WA.TaxiFee.Site.Models.ViewModels.RideVM
+﻿@using WA.TaxiFee.Site.Models.Services;
+
+@model WA.TaxiFee.Site.Models.ViewModels.RideVM
 
 @{
     ViewBag.Title = "Ride";
@@ -7,10 +9,10 @@
 <h2>Ride</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    @ViewBag.Fee
+
 
     <div class="form-horizontal">
         <h4>RideVM</h4>
@@ -43,4 +45,23 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
+        //
+        @{
+            string msg = string.Empty;
+            RideResponse response = ViewBag.Info as RideResponse;
+            if(response !=null)
+            {
+
+               msg = $"計費方式{response.ChargeType}, 金額:{response.Fee}";
+            }
+        }
+
+        let alertMessage = '@msg';
+        if (alertMessage != '') {
+            swal("Good job!", alertMessage, "success");
+        }
+    </script>
 }

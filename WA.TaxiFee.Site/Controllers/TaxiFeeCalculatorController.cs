@@ -24,9 +24,9 @@ namespace WA.TaxiFee.Site.Controllers
 
             // RideDTO dto = model.ToDTO(); //  new RideDTO { Hour = model.Hour, Distance =model.Distance};
 
-            var response = service.Calculate(model.ToDTO());
+            ViewBag.Info = service.Calculate(model.ToDTO());
 
-            ViewBag.Fee = response.Fee;
+            // ViewBag.Info = response;
 
             return View(model);
         }
